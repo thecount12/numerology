@@ -1,0 +1,131 @@
+// numerology calculator
+
+
+/*
+//local usage un-comment to use
+var cmd = nil;
+var a = args();
+print "args: " + toJSON(a);
+if (a.length < 1) {
+	print "Usage: lux calculator.lux 'name'";
+	exit();
+}
+
+if (a.length == 1) {
+	cmd = a[0];
+}
+*/
+
+class Number {
+	init() {
+		this.a = 1; this.b = 2; this.c = 3; this.d = 4; 
+		this.e = 5; this.f = 6; this.g = 7; this.h = 8;
+		this.i = 9; this.j = 10; this.k = 11; this.l = 12;
+		this.m = 13; this.n = 14; this.o = 15; this.p = 16;
+		this.q = 17; this.r = 18; this.s = 19; this.t = 20;
+		this.u = 21; this.v = 22; this.w = 23; this.x = 24;
+		this.y = 25; this.z = 26;
+	}
+}
+
+class AlphaUpper {
+	init() {
+		this.A = "a"; this.B = "b"; this.C = "c"; this.D = "d";
+		this.E = "e"; this.F = "f"; this.G = "g"; this.H = "h";
+		this.I = "i"; this.J = "j"; this.K = "k"; this.L = "l";
+		this.M = "m"; this.N = "n"; this.O = "o"; this.P = "p";
+		this.Q = "q"; this.R = "r"; this.S = "s"; this.T = "t";
+		this.U = "u"; this.V = "v"; this.W = "w"; this.X = "x";
+		this.Y = "y"; this.Z = "z";
+	}
+}
+
+fun convert(char) {
+	// char = "BacD22-,";
+    var str = "";
+	print "original char: " + char;
+	for (var i = 0; i<len(char); i = i + 1 ) {
+		//print "char: " + char[i] + ", num: " + i; // debug
+		if (getField(alpha, char[i]) != nil) {
+			str = str + getField(alpha, char[i]);
+		} else {
+			str = str + char[i];
+		}
+	}
+	return str;
+}
+
+var number = Number();
+var alpha = AlphaUpper();
+
+fun getNumArray(char) {
+	// make global
+	// future work vowel count
+	// future work consonant count
+	var array = [];
+	var num = 0; // Tracks actual assigned slots in the final numeric array
+	
+	for (var i = 0; i < len(char); i = i + 1) {
+		// Ignore punctuation and spaces explicitly
+		if (char[i] != "-" & char[i] != "," & char[i] != " ") {
+			
+			if (parseJSON(char[i]) != nil) { 
+				// It's a literal number string, parse it out safely
+				array[num] = parseJSON(char[i]);
+			} else {
+				// It's a letter, check our letter-to-number mapping object
+				var val = getField(number, char[i]);
+				if (val != nil) {
+					array[num] = val;
+				} else {
+					// Fallback for unexpected characters to prevent execution crashes
+					array[num] = 0; 
+				}
+			}
+			
+			// ONLY advance our array index when we actually store a valid value!
+			num = num + 1;
+		}
+	}
+	return array;
+}
+
+
+fun reduce(array) {
+	if (array.length == 1) {
+		return array[0];
+	}
+	var ar = [];
+	var number = 0;
+	for (var i = 0; i < array.length; i = i + 1) {
+		if (parseJSON(array[i]) != nil) {
+			var new_num = parseJSON(array[i]);
+			number = number + new_num;
+		} else {
+			number = number + array[i];
+		}
+	}
+	//print "initial number: " + number;
+	var count = 0;
+    var data = number + ""; // convert number to string again
+	while (count < len(data)) {
+		//print data[count];
+		var n = parseJSON(data[count]);
+		ar[count] = n;
+		count = count + 1;
+	}
+	return reduce(ar);
+}
+
+
+//var cmd = "BaXD22-,"; // manual test
+
+/* ---main --- */ 
+
+/*
+var lower = convert(cmd);
+print "lower char: " + lower;
+var num_list = getNumArray(lower);
+print num_list; // for debuging;
+print "numerology number: " + reduce(num_list);
+*/

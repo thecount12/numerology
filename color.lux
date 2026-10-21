@@ -1,0 +1,34 @@
+/*
+class Color {
+	init() {
+		this.gold = 1; // 1,4
+		this.purple = 2; // 2,7
+		this.blue = 3;
+		this.orange = 5;
+		this.green = 6;
+		this.black = 8;
+		this.red = 9;
+	}
+}
+*/
+
+//var color = Color();
+//print color.green;
+//print "getField: " + getField(color, "green");
+
+var d = Dict();
+d.put("gold", "1");
+d.put("purple", "2");
+d.put("gold", "4"); // overwrites 1
+
+print d.get("gold");
+print d.has("gold");
+print toJSON(d.iter());
+
+/* results:
+1
+true
+[{"value":"1","key":"gold"},{"value":"2","key":"purple"}]
+
+
+*/

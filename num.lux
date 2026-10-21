@@ -1,0 +1,30 @@
+fun reduce(array) {
+  // BASE CASE: If down to a single digit, return it and stop!
+  if (array.length == 1) {
+    return array[0];
+  }
+  var ar = [];
+  var number = 0;
+  for (var i = 0; i < array.length; i = i + 1) {
+    //print "item: " + array[i]; // debug
+    number = number + array[i];
+  }
+  //print "final number: " + number; //debug
+
+  var count = 0;
+  number = number + ""; 
+  while (count < len(number)) {
+    //print number[count];
+    var n = parseJSON(number[count]);
+    ar[count] = n;
+    count = count + 1;
+  }
+  //print "ar: " + toJSON(ar);
+  
+  // Now this recursion can fire safely!
+  return reduce(ar); 
+}
+
+var rootDigit = reduce([2,1,24,4,2,2]);
+print "Numerology Root Digit: " + rootDigit;
+

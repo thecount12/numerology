@@ -1,0 +1,50 @@
+// web server
+
+import "calculator.lux";
+
+class Template {
+	init (title, item) {
+		this.title = title;
+		this.item = item;
+	}
+}
+
+fun handleRoot(req, res) {
+	var ctx = Template("Raw Numerology", nil);
+	var template = renderTemplate("src/index.tpl", ctx);
+	res.html(template);
+}
+
+fun handleCalc(req, res) {
+	var ctx = Template("", nil);
+	var template = renderTemplate("src/calc-index.tpl", ctx);
+	res.html(template);
+}
+
+class Foo { init() {}}
+
+fun handleCalculator(req, res) {
+	print "req: " + toJSON(req.body);
+	var formData = parseForm(req.body);
+	print "form data: " + toJSON(formData);
+	var cmd = getField(formData, "name");
+	print "cmd: " + cmd;
+	var lower = convert(cmd);
+	print "lower char: " + lower;
+	var num_list = getNumArray(lower);
+	print num_list; // for debuging;
+	print "numerology number: " + reduce(num_list);
+	var foo = Foo();
+	foo.numerology = reduce(num_list);
+	res.json(foo);
+}
+
+var server = Server(8080);
+server.workers();
+server.static("src");
+server.get("/", handleRoot);
+server.get("/calculate", handleCalc);
+server.post("/calc", handleCalculator);
+
+server.start();
+

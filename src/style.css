@@ -1,0 +1,119 @@
+:root {
+    --bg-color: #fcfbfa; /* Soft alabaster */
+    --text-color: #1a1e24; /* Deep twilight */
+    --accent-color: #bc9c65; /* Muted gold */
+    --card-bg: #ffffff;
+    --muted-text: #606875;
+    --border-color: #f0ede9;
+}
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 0;
+    letter-spacing: -0.01em;
+}
+header {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header h1 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+nav a {
+    color: var(--muted-text);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+nav a:hover {
+    color: var(--accent-color);
+}
+main {
+    max-width: 850px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+}
+.hero {
+    text-align: center;
+    padding: 4rem 1rem 2rem 1rem;
+}
+.hero h2 {
+    font-size: 2.25rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+}
+.hero p {
+    font-size: 1.15rem;
+    color: var(--muted-text);
+    max-width: 500px;
+    margin: 0 auto 1.5rem auto;
+}
+.btn {
+    display: inline-block;
+    background-color: var(--text-color);
+    color: white;
+    padding: 0.75rem 2rem;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    margin-top: 1rem;
+}
+.btn:hover {
+    background-color: var(--accent-color);
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 4rem;
+}
+.card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(26, 30, 36, 0.02);
+    transition: transform 0.2s ease;
+}
+.card:hover {
+    transform: translateY(-2px);
+}
+.number-badge {
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+.card h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--muted-text);
+}
+footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    font-size: 0.85rem;
+    color: var(--muted-text);
+    margin-top: 6rem;
+    border-top: 1px solid var(--border-color);
+}
