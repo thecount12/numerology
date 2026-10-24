@@ -19,7 +19,7 @@ struct ContentView: View {
             VStack(spacing: 24) {
                 // Header Space
                 VStack(spacing: 8) {
-                    Text("Numerology Pro")
+                    Text("Numerology Calculator")
                         .font(.largeTitle.bold())
                         .foregroundColor(.primary)
                     Text("Select a tool to explore numerical vibrations.")
@@ -44,15 +44,46 @@ struct ContentView: View {
                     // ICON 2: Alphabet / Text Root Analyzer
                     NavigationLink(destination: TextRootCalculatorView()) {
                         DashboardButtonView(
-                            title: "Text Root",
-                            subtitle: "Names & Streets",
+                            title: "Text Analyzer",
+                            subtitle: "Input Anything",
                             iconName: "abc",
                             backgroundColor: .purple
                         )
                     }
                     
                     // FUTURE ICONS (3 through 10) GO HERE!
-                    // Just duplicate the NavigationLink block above when ready.
+                    // ICON 3: Compatibility Matcher
+                    NavigationLink(destination: CompatibilityView()) {
+                        DashboardButtonView(
+                            title: "Compatibility",
+                            subtitle: "Compare Vibrations",
+                            iconName: "heart.sparkles",
+                            backgroundColor: .pink
+                        )
+                    }
+                    
+                    // ICON 4: Personal Year Cycles
+                    NavigationLink(destination: PersonalYearView()) {
+                        DashboardButtonView(
+                            title: "Personal Year",
+                            subtitle: "2026 Cycle Theme",
+                            iconName: "clock.arrow.2.circlepath",
+                            backgroundColor: .blue
+                        )
+                    }
+                    
+                    // ICON 5: Soul Urge Analyzer
+                    NavigationLink(destination: SoulUrgeView()) {
+                        DashboardButtonView(
+                            title: "Soul Urge",
+                            subtitle: "Vowel Desires",
+                            iconName: "waveform.path.ecg",
+                            backgroundColor: .orange
+                        )
+                    }
+
+
+
                 }
                 .padding(.horizontal)
                 

@@ -15,7 +15,7 @@ struct LifePathCalculatorView: View {
     var body: some View {
         Form {
             Section(header: Text("User Details")) {
-                TextField("First Name", text: $name)
+                TextField("Full Name", text: $name)
                     .autocorrectionDisabled()
             }
             
