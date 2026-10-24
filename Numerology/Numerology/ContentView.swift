@@ -82,6 +82,15 @@ struct ContentView: View {
                         )
                     }
 
+                    // ICON 6: Personality Analyzer
+                    NavigationLink(destination: PersonalityView()) {
+                        DashboardButtonView(
+                            title: "Personality",
+                            subtitle: "Consonant Aura",
+                            iconName: "person.text.rectangle",
+                            backgroundColor: .teal
+                        )
+                    }
 
 
                 }
