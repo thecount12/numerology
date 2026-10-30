@@ -48,7 +48,7 @@ struct SoulUrgeView: View {
                     // The Number is the HERO
                     Text("\(number)")
                         .font(.system(size: 80, weight: .black, design: .rounded))
-                        .foregroundColor(.white)
+                        .foregroundColor(theme.pulseColor) // flashing
                         .frame(width: 140, height: 140)
                         .background(theme.color.gradient) // Colored by your Lux rules!
                         .clipShape(Circle())

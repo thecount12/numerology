@@ -46,6 +46,20 @@ enum NumerologyTheme {
         }
     }
     
+    // Your exact requested polarity shift mapping for the numbers!
+    var pulseColor: Color {
+        switch self {
+        case .gold:   return Color(.systemPurple) // Gold -> Purple
+        case .purple: return Color(.systemYellow) // Purple -> Yellow
+        case .blue:   return Color(.systemOrange) // Blue -> Orange
+        case .orange: return Color(.systemBlue)   // Orange -> Blue
+        case .green:  return Color(.systemRed)    // Green -> Red
+        case .black:  return Color(.white)        // Black -> White
+        case .red:    return Color(.systemGreen)  // Red -> Green
+        case .unknown: return Color(.white)
+        }
+    }
+    
     // 4. Hand back matching semantic names for descriptions
     var name: String {
         switch self {

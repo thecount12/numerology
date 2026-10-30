@@ -47,7 +47,7 @@ struct TextRootCalculatorView: View {
                     // The Number is the HERO element
                     Text("\(number)")
                         .font(.system(size: 80, weight: .black, design: .rounded))
-                        .foregroundColor(.white)
+                        .foregroundColor(theme.pulseColor) // flashing color
                         .frame(width: 140, height: 140)
                         .background(theme.color.gradient) // Colored by your Lux rules!
                         .clipShape(Circle())
