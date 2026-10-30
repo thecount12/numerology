@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct NumerologyApp: App {
@@ -13,5 +14,7 @@ struct NumerologyApp: App {
         WindowGroup {
             ContentView()
         }
+        // this injects persistent sqlite engine
+        .modelContainer(for: UserProfile.self)
     }
 }

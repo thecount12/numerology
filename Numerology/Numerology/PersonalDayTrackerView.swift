@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct PersonalDayTrackerView: View {
-    @State private var birthMonth: String = ""
-    @State private var birthDay: String = ""
+    @Query(sort: \UserProfile.name) private var savedProfiles: [UserProfile]
+    @State private var selectedProfile: UserProfile?
+    
+    @State private var manualMonth: String = ""
+    @State private var manualDay: String = ""
     @State private var dailyVibrationResult: Int? = nil
     
-    // Grabs the true current date dynamically from the device environment
     private var formattedCurrentDate: String {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -21,41 +24,45 @@ struct PersonalDayTrackerView: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Enter Birth Information")) {
-                TextField("Birth Month (1-12)", text: $birthMonth)
-                    .keyboardType(.numberPad)
-                TextField("Birth Day (1-31)", text: $birthDay)
-                    .keyboardType(.numberPad)
-            }
-            
-            Section(header: Text("Current Horizon Metric")) {
-                HStack {
-                    Text("Today's Target Date:")
-                    Spacer()
-                    Text(formattedCurrentDate)
-                        .font(.subheadline.bold())
-                        .foregroundColor(.secondary)
+            Section(header: Text("Target Identity Source")) {
+                Picker("Track Energy For", selection: $selectedProfile) {
+                    Text("Quick Manual Entry").tag(UserProfile?.none)
+                    ForEach(savedProfiles) { profile in
+                        Text(profile.name).tag(profile as UserProfile?)
+                    }
+                }
+                .onChange(of: selectedProfile) {
+                    executeAutoCalculations()
                 }
             }
             
-            Button(action: calculatePersonalDay) {
-                Text("Compute Current Day Energy")
-                    .frame(maxWidth: .infinity, alignment: .center)
+            if selectedProfile == nil {
+                Section(header: Text("Manual Birth Data Matrix")) {
+                    TextField("Birth Month (1-12)", text: $manualMonth)
+                        .keyboardType(.numberPad)
+                    TextField("Birth Day (1-31)", text: $manualDay)
+                        .keyboardType(.numberPad)
+                }
+                
+                Button(action: calculateManualDay) {
+                    Text("Compute Matrix Engine")
+                        .frame(maxWidth: .infinity, alignment: .center)
+                }
+                .disabled(manualMonth.isEmpty || manualDay.isEmpty)
             }
-            .disabled(birthMonth.isEmpty || birthDay.isEmpty)
             
             if let number = dailyVibrationResult {
                 let theme = NumerologyTheme.from(number: number)
                 
                 VStack(spacing: 16) {
-                    Text("Today's Daily Root Vibration")
+                    Text("Dynamic Horizon Wave Value")
                         .font(.subheadline.bold())
                         .foregroundColor(.secondary)
                         .textCase(.uppercase)
                     
                     Text("\(number)")
                         .font(.system(size: 80, weight: .black, design: .rounded))
-                        .foregroundColor(theme.pulseColor) // Polarity matching target configuration
+                        .foregroundColor(theme.pulseColor)
                         .frame(width: 140, height: 140)
                         .background(theme.color.gradient)
                         .clipShape(Circle())
@@ -63,29 +70,51 @@ struct PersonalDayTrackerView: View {
                     
                     Text(theme.name)
                         .font(.headline)
+                    
+                    Text("Calculated for today: \(formattedCurrentDate)")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
                 .padding(.vertical, 24)
                 .frame(maxWidth: .infinity)
                 .listRowBackground(Color.clear)
             }
         }
-        .navigationTitle("Personal Day Tracker")
+        .navigationTitle("Daily Tracker")
+        .onAppear {
+            executeAutoCalculations()
+        }
     }
     
-    func calculatePersonalDay() {
-        guard let bMonth = Int(birthMonth), let bDay = Int(birthDay) else { return }
-        
+    func executeAutoCalculations() {
+        if let profile = selectedProfile {
+            let calendar = Calendar.current
+            let bMonth = calendar.component(.month, from: profile.birthDate)
+            let bDay = calendar.component(.day, from: profile.birthDate)
+            computeRootValue(month: bMonth, day: bDay)
+        } else {
+            dailyVibrationResult = nil
+        }
+    }
+    
+    func calculateManualDay() {
+        guard let m = Int(manualMonth), let d = Int(manualDay) else { return }
+        computeRootValue(month: m, day: d)
+    }
+    
+    func computeRootValue(month: Int, day: Int) {
         let today = Date()
         let calendar = Calendar.current
         let tYear = calendar.component(.year, from: today)
         let tMonth = calendar.component(.month, from: today)
         let tDay = calendar.component(.day, from: today)
         
-        let runningSum = bMonth + bDay + tYear + tMonth + tDay
+        let runningSum = month + day + tYear + tMonth + tDay
         let remainder = runningSum % 9
         dailyVibrationResult = (remainder == 0) ? 9 : remainder
     }
 }
+
 
 #Preview {
     PersonalDayTrackerView()

@@ -6,14 +6,34 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct LifePathCalculatorView: View {
     @State private var name: String = ""
     @State private var birthDate = Date()
     @State private var resultMessage: String? = nil
+    @Query(sort: \UserProfile.name) private var savedProfiles: [UserProfile]
+    @State private var selectedProfile: UserProfile?
     
     var body: some View {
         Form {
+            // Drop this block inside your Form view list hierarchy right at the top:
+            Section(header: Text("Quick-Fill From Vault")) {
+                Picker("Select Profile", selection: $selectedProfile) {
+                    Text("Manual Workspace").tag(UserProfile?.none)
+                    ForEach(savedProfiles) { profile in
+                        Text(profile.name).tag(profile as UserProfile?)
+                    }
+                }
+                .onChange(of: selectedProfile) {
+                    if let profile = selectedProfile {
+                        self.name = profile.name
+                        self.birthDate = profile.birthDate
+                        calculateLifePath()
+                    }
+                }
+            }
+
             Section(header: Text("User Details")) {
                 TextField("Full Name", text: $name)
                     .autocorrectionDisabled()
