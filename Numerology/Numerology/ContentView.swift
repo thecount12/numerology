@@ -8,142 +8,185 @@
 import SwiftUI
 
 struct ContentView: View {
-    // A clean grid layout layout that handles 2 columns beautifully
+    // 1. Splash State Controller - lives in memory during execution launch
+    @State private var isSplashActive = true
+    @State private var splashOpacity = 0.0
+    @State private var logoScale = 0.7
+    
     let columns = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible(), spacing: 16)
     ]
     
     var body: some View {
-        NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 24) {
-                    // Header Space
+        ZStack {
+            if isSplashActive {
+                // MARK: - THE CUSTOM SPLASH VISUAL SCREEN
+                VStack(spacing: 20) {
+                    Spacer()
+                    
+                    // Core Geometric Vibrational Icon
+                    Image(systemName: "circle.hexagongrid.fill")
+                        .font(.system(size: 90))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [.purple, .yellow],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .scaleEffect(logoScale)
+                        .shadow(color: .purple.opacity(0.3), radius: 20, y: 10)
+                    
                     VStack(spacing: 8) {
                         Text("Numerology Calculator")
-                            .font(.largeTitle.bold())
+                            .font(.system(size: 34, weight: .black, design: .rounded))
                             .foregroundColor(.primary)
-                        Text("Select a tool to explore numerical vibrations.")
+                        
+                        Text("Vibrational Digital Root Engine")
                             .font(.subheadline)
+                            .fontWeight(.medium)
                             .foregroundColor(.secondary)
+                            .tracking(2)
                     }
-                    .padding(.top, 30)
-                    
-                    // The Master Dashboard Grid (Scales easily up to 10 icons!)
-                    LazyVGrid(columns: columns, spacing: 16) {
-                        
-                        // ICON 1: Life Path Calendar
-                        NavigationLink(destination: LifePathCalculatorView()) {
-                            DashboardButtonView(
-                                title: "Life Path",
-                                subtitle: "Birthdate Math",
-                                iconName: "calendar.badge.clock",
-                                backgroundColor: .blue
-                            )
-                        }
-                        
-                        // ICON 2: Alphabet / Text Root Analyzer
-                        NavigationLink(destination: TextRootCalculatorView()) {
-                            DashboardButtonView(
-                                title: "Text Analyzer",
-                                subtitle: "Input Anything",
-                                iconName: "abc",
-                                backgroundColor: .purple
-                            )
-                        }
-                        
-                        // FUTURE ICONS (3 through 10) GO HERE!
-                        // ICON 3: Compatibility Matcher
-                        NavigationLink(destination: CompatibilityView()) {
-                            DashboardButtonView(
-                                title: "Compatibility",
-                                subtitle: "Compare Vibrations",
-                                iconName: "heart",
-                                backgroundColor: .pink
-                            )
-                        }
-                        
-                        // ICON 4: Personal Year Cycles
-                        NavigationLink(destination: PersonalYearView()) {
-                            DashboardButtonView(
-                                title: "Personal Year",
-                                subtitle: "2026 Cycle Theme",
-                                iconName: "clock.arrow.2.circlepath",
-                                backgroundColor: .blue
-                            )
-                        }
-                        
-                        // ICON 5: Soul Urge Analyzer
-                        NavigationLink(destination: SoulUrgeView()) {
-                            DashboardButtonView(
-                                title: "Soul Urge",
-                                subtitle: "Vowel Desires",
-                                iconName: "waveform.path.ecg",
-                                backgroundColor: .orange
-                            )
-                        }
-                        
-                        // ICON 6: Personality Analyzer
-                        NavigationLink(destination: PersonalityView()) {
-                            DashboardButtonView(
-                                title: "Personality",
-                                subtitle: "Consonant Aura",
-                                iconName: "person.text.rectangle",
-                                backgroundColor: .teal
-                            )
-                        }
-                        
-                        // ICON 7: Full Destiny Expression Calculator
-                        NavigationLink(destination: DestinyExpressionView()) {
-                            DashboardButtonView(
-                                title: "Destiny",
-                                subtitle: "Full Name Blueprint",
-                                iconName: "signature",
-                                backgroundColor: .indigo
-                            )
-                        }
-                        
-                        // ICON 8: Personal Day Tracker
-                        NavigationLink(destination: PersonalDayTrackerView()) {
-                            DashboardButtonView(
-                                title: "Daily Tracker",
-                                subtitle: "Hourly Flow Root",
-                                iconName: "bolt.shield",
-                                backgroundColor: .mint
-                            )
-                        }
-                        
-                        // ICON 9: Planes of Expression Matrix
-                        NavigationLink(destination: PlanesOfExpressionView()) {
-                            DashboardButtonView(
-                                title: "Planes",
-                                subtitle: "Temperament Grids",
-                                iconName: "square.grid.3x3.topleft.filled",
-                                backgroundColor: .brown
-                            )
-                        }
-                        
-                        // ICON 10: Maturity Destination Number
-                        NavigationLink(destination: MaturityNumberView()) {
-                            DashboardButtonView(
-                                title: "Maturity",
-                                subtitle: "Future Horizon Root",
-                                iconName: "leaf.arrow.triangle.circlepath",
-                                backgroundColor: Color(red: 0.0, green: 0.6, blue: 0.3)
-                            )
-                        }
-                        
-                        
-                    }
-                    .padding(.horizontal)
                     
                     Spacer()
+                    
+                    Text("Secure & Ephemeral")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .tracking(1)
+                        .padding(.bottom, 20)
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(UIColor.systemGroupedBackground))
+                .opacity(splashOpacity)
+                .onAppear {
+                    // Smoothly animate the logo scale and opacity when loaded
+                    withAnimation(.easeOut(duration: 1.0)) {
+                        self.splashOpacity = 1.0
+                        self.logoScale = 1.0
+                    }
+                    
+                    // Fire the automatic transition gateway to reveal the app
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.2) {
+                        withAnimation(.easeInOut(duration: 0.6)) {
+                            self.isSplashActive = false
+                        }
+                    }
+                }
+            } else {
+                // MARK: - YOUR COMPLETED 10-ICON MASTER DASHBOARD
+                NavigationStack {
+                    ScrollView(.vertical, showsIndicators: false) {
+                        VStack(spacing: 24) {
+                            // Header Space
+                            VStack(spacing: 8) {
+                                Text("Numerology Calculator")
+                                    .font(.largeTitle.bold())
+                                    .foregroundColor(.primary)
+                                Text("Select a tool to explore numerical vibrations.")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                            .padding(.top, 24)
+                            
+                            // The Master Dashboard Grid
+                            LazyVGrid(columns: columns, spacing: 16) {
+                                NavigationLink(destination: LifePathCalculatorView()) {
+                                    DashboardButtonView(title: "Life Path", subtitle: "Birthdate Math", iconName: "calendar.badge.clock", backgroundColor: .blue)
+                                }
+                                
+                                NavigationLink(destination: TextRootCalculatorView()) {
+                                    DashboardButtonView(title: "Text Root", subtitle: "Names & Streets", iconName: "abc", backgroundColor: .purple)
+                                }
+                                
+                                NavigationLink(destination: CompatibilityView()) {
+                                    DashboardButtonView(title: "Compatibility", subtitle: "Compare Vibrations", iconName: "heart", backgroundColor: .pink)
+                                }
+                                
+                                NavigationLink(destination: PersonalYearView()) {
+                                    DashboardButtonView(title: "Personal Year", subtitle: "2026 Cycle Theme", iconName: "clock.arrow.2.circlepath", backgroundColor: .blue)
+                                }
+                                
+                                NavigationLink(destination: SoulUrgeView()) {
+                                    DashboardButtonView(title: "Soul Urge", subtitle: "Vowel Desires", iconName: "waveform.path.ecg", backgroundColor: .orange)
+                                }
+                                
+                                NavigationLink(destination: PersonalityView()) {
+                                    DashboardButtonView(title: "Personality", subtitle: "Consonant Aura", iconName: "person.text.rectangle", backgroundColor: .teal)
+                                }
+                                
+                                NavigationLink(destination: DestinyExpressionView()) {
+                                    DashboardButtonView(title: "Destiny", subtitle: "Full Name Blueprint", iconName: "signature", backgroundColor: .indigo)
+                                }
+                                
+                                NavigationLink(destination: PersonalDayTrackerView()) {
+                                    DashboardButtonView(title: "Daily Tracker", subtitle: "Hourly Flow Root", iconName: "bolt.shield", backgroundColor: .mint)
+                                }
+                                
+                                NavigationLink(destination: PlanesOfExpressionView()) {
+                                    DashboardButtonView(title: "Planes", subtitle: "Temperament Grids", iconName: "square.grid.3x3.topleft.filled", backgroundColor: .brown)
+                                }
+                                
+                                NavigationLink(destination: MaturityNumberView()) {
+                                    DashboardButtonView(title: "Maturity", subtitle: "Future Horizon Root", iconName: "leaf.arrow.triangle.circlepath", backgroundColor: Color(red: 0.0, green: 0.6, blue: 0.3))
+                                }
+                                
+                                // ICON 11: Persistent SwiftData Profiles Vault
+                                NavigationLink(destination: ProfilesVaultView()) {
+                                    DashboardButtonView(
+                                        title: "Saved Vault",
+                                        subtitle: "Persistent Records",
+                                        iconName: "person.text.rectangle.fill",
+                                        backgroundColor: Color(.systemGray) // Using a structural steel tone
+                                    )
+                                }
+                                
+                                // ICON 12: The Trinity Core Synthesis Matrix
+                                NavigationLink(destination: TrinityMatrixView()) {
+                                    DashboardButtonView(
+                                        title: "Trinity Core",
+                                        subtitle: "The Big Three Matrix",
+                                        iconName: "triangle.fill",
+                                        backgroundColor: .indigo
+                                    )
+                                }
+
+                                // ICON 13: Cosmic Spheres Cosmology Matrix
+                                NavigationLink(destination: CosmicSpheresView()) {
+                                    DashboardButtonView(
+                                        title: "Cosmic Spheres",
+                                        subtitle: "The Vertical Planes",
+                                        iconName: "globe.americas.fill",
+                                        backgroundColor: .purple
+                                    )
+                                }
+                                
+                                // ICON 14: The Planetary Archetypes Vault
+                                NavigationLink(destination: PlanetaryArchetypesView()) {
+                                    DashboardButtonView(
+                                        title: "Planets & Spirits",
+                                        subtitle: "Alchemical Roots",
+                                        iconName: "moon.stars.fill",
+                                        backgroundColor: .teal
+                                    )
+                                }
+
+
+                            }
+                            .padding(.horizontal)
+                            .padding(.bottom, 30)
+                        }
+                    }
+                    .background(Color(UIColor.systemGroupedBackground))
+                }
+                .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .opacity))
             }
         }
     }
 }
+
 
 // MARK: - Reusable Dashboard Component
 struct DashboardButtonView: View {
