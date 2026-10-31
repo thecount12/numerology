@@ -107,6 +107,10 @@ struct ContentView: View {
                                     DashboardButtonView(title: "Text Root", subtitle: "Names & Streets", iconName: "abc", backgroundColor: .purple)
                                 }
                                 
+                                NavigationLink(destination: WordScanView()) {
+                                    DashboardButtonView(title: "Word Scan", subtitle: "Camera Text Root", iconName: "viewfinder", backgroundColor: Color(red: 0.45, green: 0.2, blue: 0.75))
+                                }
+                                
                                 NavigationLink(destination: CompatibilityView()) {
                                     DashboardButtonView(title: "Compatibility", subtitle: "Compare Vibrations", iconName: "heart", backgroundColor: .pink)
                                 }
@@ -115,17 +119,17 @@ struct ContentView: View {
                                     DashboardButtonView(title: "Personal Year", subtitle: "2026 Cycle Theme", iconName: "clock.arrow.2.circlepath", backgroundColor: .blue)
                                 }
                                 
-                                NavigationLink(destination: PersonalDayTrackerView()) {
-                                    DashboardButtonView(title: "Daily Tracker", subtitle: "Today’s Number Root", iconName: "bolt.shield", backgroundColor: .mint)
-                                }
+                                // NavigationLink(destination: PersonalDayTrackerView()) {
+                                //     DashboardButtonView(title: "Daily Tracker", subtitle: "Today’s Number Root", iconName: "bolt.shield", backgroundColor: .mint)
+                                // }
                                 
                                 NavigationLink(destination: DailyReadingView()) {
                                     DashboardButtonView(title: "Daily Reading", subtitle: "Seeded Day Forecast", iconName: "book.pages.fill", backgroundColor: .orange)
                                 }
                                 
-                                NavigationLink(destination: PlanesOfExpressionView()) {
-                                    DashboardButtonView(title: "Planes", subtitle: "Temperament Grids", iconName: "square.grid.3x3.topleft.filled", backgroundColor: .brown)
-                                }
+                                // NavigationLink(destination: PlanesOfExpressionView()) {
+                                //     DashboardButtonView(title: "Planes", subtitle: "Temperament Grids", iconName: "square.grid.3x3.topleft.filled", backgroundColor: .brown)
+                                // }
                                 
                                 NavigationLink(destination: MaturityNumberView()) {
                                     DashboardButtonView(title: "Maturity", subtitle: "Future Horizon Root", iconName: "leaf.arrow.triangle.circlepath", backgroundColor: Color(red: 0.0, green: 0.6, blue: 0.3))

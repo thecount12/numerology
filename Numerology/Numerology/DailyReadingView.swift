@@ -106,6 +106,45 @@ struct DailyReadingView: View {
                     labeledBlock("Action", reading.action)
                 }
                 
+                Section(header: Text("Moon Lucky Numbers")) {
+                    let moon = reading.moonLucky
+                    HStack(spacing: 8) {
+                        Text(moon.phase.symbol)
+                            .font(.title)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(moon.phase.name)
+                                .font(.headline)
+                            Text("\(Int((moon.phase.illumination * 100).rounded()))% illuminated · phase root \(moon.phaseNumber)")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        Spacer()
+                    }
+                    
+                    HStack(spacing: 12) {
+                        ForEach(moon.numbers, id: \.self) { n in
+                            let chipTheme = NumerologyTheme.from(number: n)
+                            Text("\(n)")
+                                .font(.system(size: 28, weight: .black, design: .rounded))
+                                .foregroundColor(chipTheme.pulseColor)
+                                .frame(width: 56, height: 56)
+                                .background(chipTheme.color.gradient)
+                                .clipShape(Circle())
+                                .shadow(color: chipTheme.color.opacity(0.3), radius: 4, y: 2)
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 6)
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Phase \(moon.phaseNumber) · Day \(moon.personalDay) · Path \(moon.lifePath)")
+                            .font(.caption.bold())
+                            .foregroundColor(.secondary)
+                        Text(moon.guidance)
+                            .font(.subheadline)
+                    }
+                }
+                
                 Section(header: Text("Full Reading")) {
                     Text(reading.composedText)
                         .font(.body)
