@@ -247,10 +247,14 @@ struct QuadrantDetailModalView: View {
     
     var explanationText: String {
         switch type {
-        case .lifePath: return "Your life journey focuses on leadership, independence, and carving out untrodden paths. You are wired to innovate and step into individual authority."
-        case .destiny: return "Your complete destiny targets original creation and self-reliance. Your names hold the architectural spark required to run organizations autonomously."
-        case .soulUrge: return "Deep down, your heart desires total autonomy and dominance. Your soul secretively aches to be number one, resisting submissive roles."
-        case .personality: return "The world perceives you as an intimidating, fiercely confident alpha presence. Your external aura projects power, style, and individual dominance."
+        case .lifePath(let num):
+            return TrinityPillarCopy.lifePath(num)
+        case .destiny(let num):
+            return TrinityPillarCopy.destiny(num)
+        case .soulUrge(let num):
+            return TrinityPillarCopy.soulUrge(num)
+        case .personality(let num):
+            return TrinityPillarCopy.personality(num)
         }
     }
     
@@ -264,7 +268,6 @@ struct QuadrantDetailModalView: View {
                 .textCase(.uppercase)
                 .padding(.top, 30)
             
-            // Fixed the missing backslash escaping here!
             Text("\(number)")
                 .font(.system(size: 80, weight: .black, design: .rounded))
                 .foregroundColor(theme.pulseColor)
@@ -300,4 +303,107 @@ struct QuadrantDetailModalView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(UIColor.systemGroupedBackground))
     }
-} // Closes the QuadrantDetailModalView struct container cleanly
+}
+
+// MARK: - Pillar meanings for digital roots 1–9
+enum TrinityPillarCopy {
+    static func lifePath(_ n: Int) -> String {
+        switch n {
+        case 1:
+            return "Your life journey focuses on leadership, independence, and carving out untrodden paths. You are wired to innovate and step into individual authority."
+        case 2:
+            return "Your life journey focuses on partnership, patience, and diplomatic balance. You are wired to cooperate, sense subtle dynamics, and strengthen others behind the scenes."
+        case 3:
+            return "Your life journey focuses on creative expression, communication, and joyful expansion. You are wired to share your voice, uplift through art or speech, and socialize with purpose."
+        case 4:
+            return "Your life journey focuses on building durable foundations through discipline and integrity. You are wired for structure, hard work, and systems that last."
+        case 5:
+            return "Your life journey focuses on freedom, change, and adaptable experience. You are wired as a catalyst—travel, variety, and turning points keep your path alive."
+        case 6:
+            return "Your life journey focuses on responsibility, care, and harmonious service. You are wired for home, family, beauty, and the healing of close communities."
+        case 7:
+            return "Your life journey focuses on inner wisdom, analysis, and spiritual investigation. You are wired for solitude, study, and uncovering what lies beneath the surface."
+        case 8:
+            return "Your life journey focuses on mastery of material power, ambition, and fair authority. You are wired for business, results, and karmic balance in the outer world."
+        case 9:
+            return "Your life journey focuses on completion, compassion, and wide humanitarian vision. You are wired to release, forgive, and serve a story larger than the personal self."
+        default:
+            return "Life Path vibration unresolved for this root."
+        }
+    }
+    
+    static func destiny(_ n: Int) -> String {
+        switch n {
+        case 1:
+            return "Your Destiny / Expression targets original creation and self-reliance. Your full name carries the architectural spark to initiate, lead, and stand alone when needed."
+        case 2:
+            return "Your Destiny / Expression targets peacemaking, support, and refined collaboration. Your full name equips you to mediate, partner, and bring delicate order to shared work."
+        case 3:
+            return "Your Destiny / Expression targets creative output and inspired communication. Your full name pushes you toward performance, writing, teaching, or any stage where ideas become joy."
+        case 4:
+            return "Your Destiny / Expression targets reliable construction and practical excellence. Your full name asks you to organize, fortify, and leave tangible structures behind."
+        case 5:
+            return "Your Destiny / Expression targets liberation, versatility, and progressive change. Your full name moves you through many roles, places, and experiments in freedom."
+        case 6:
+            return "Your Destiny / Expression targets nurturing leadership and aesthetic harmony. Your full name calls you to counsel, beautify, protect, and elevate domestic or community life."
+        case 7:
+            return "Your Destiny / Expression targets specialized knowledge and contemplative mastery. Your full name steers you toward research, spiritual craft, analysis, or quiet expertise."
+        case 8:
+            return "Your Destiny / Expression targets executive achievement and ethical power. Your full name is built for enterprise, recognition, and managing large material currents."
+        case 9:
+            return "Your Destiny / Expression targets universal service and culminating wisdom. Your full name asks you to teach, heal, create for the many, and complete cycles with grace."
+        default:
+            return "Destiny vibration unresolved for this root."
+        }
+    }
+    
+    static func soulUrge(_ n: Int) -> String {
+        switch n {
+        case 1:
+            return "Deep down, your heart desires autonomy and first place. Your Soul Urge aches to lead, decide, and never be buried in someone else’s shadow."
+        case 2:
+            return "Deep down, your heart desires closeness, peace, and mutual understanding. Your Soul Urge softens toward partnership, tenderness, and being gently needed."
+        case 3:
+            return "Deep down, your heart desires delight, applause, and creative play. Your Soul Urge lights up when you entertain, express, and feel emotionally colorful."
+        case 4:
+            return "Deep down, your heart desires security, order, and earned respect. Your Soul Urge rests when life is stable, honest, and built on solid ground."
+        case 5:
+            return "Deep down, your heart desires freedom, novelty, and unconfined motion. Your Soul Urge resists cages—routine without oxygen feels like exile."
+        case 6:
+            return "Deep down, your heart desires to love and be responsible for what you love. Your Soul Urge finds meaning in caretaking, beauty, and emotional belonging."
+        case 7:
+            return "Deep down, your heart desires truth, privacy, and spiritual or intellectual depth. Your Soul Urge retreats from noise to understand the real pattern."
+        case 8:
+            return "Deep down, your heart desires accomplishment, influence, and material confirmation. Your Soul Urge measures fulfillment partly through status, skill, and tangible win."
+        case 9:
+            return "Deep down, your heart desires to give, forgive, and belong to the whole. Your Soul Urge expands toward compassion, art with purpose, and letting go."
+        default:
+            return "Soul Urge vibration unresolved for this root."
+        }
+    }
+    
+    static func personality(_ n: Int) -> String {
+        switch n {
+        case 1:
+            return "The world perceives you as a confident, self-directed presence. Your Personality aura projects initiative, style, and an alpha clarity that others notice first."
+        case 2:
+            return "The world perceives you as gentle, approachable, and finely tuned. Your Personality aura projects diplomacy, softness, and a listening quality that invites trust."
+        case 3:
+            return "The world perceives you as lively, charming, and expressive. Your Personality aura projects wit, warmth, and creative sparkle in first impressions."
+        case 4:
+            return "The world perceives you as steady, serious, and dependable. Your Personality aura projects competence, restraint, and someone who keeps their word."
+        case 5:
+            return "The world perceives you as magnetic, restless, and progressive. Your Personality aura projects adventure, modernity, and a refusal to look boxed-in."
+        case 6:
+            return "The world perceives you as warm, responsible, and aesthetically aware. Your Personality aura projects caretaker energy, grace, and reliable heart."
+        case 7:
+            return "The world perceives you as reserved, intelligent, and slightly mysterious. Your Personality aura projects depth, selectivity, and a mind that does not chatter lightly."
+        case 8:
+            return "The world perceives you as powerful, composed, and executive. Your Personality aura projects authority, polish, and someone who can handle large stakes."
+        case 9:
+            return "The world perceives you as wise, open-hearted, and worldly. Your Personality aura projects compassion, artistic breadth, and a finishing-elder quality."
+        default:
+            return "Personality vibration unresolved for this root."
+        }
+    }
+}

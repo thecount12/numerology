@@ -19,6 +19,7 @@ struct DailyReading {
     let action: String
     let planetaryCurrent: String
     let composedText: String
+    let moonLucky: MoonLuckyResult
 }
 
 enum DailyReadingEngine {
@@ -87,6 +88,12 @@ enum DailyReadingEngine {
             .replacingOccurrences(of: "  ", with: " ")
             .trimmingCharacters(in: .whitespacesAndNewlines)
         
+        let moonLucky = MoonLuckyNumbers.generate(
+            personalDay: day,
+            lifePath: lifePath,
+            on: date
+        )
+        
         return DailyReading(
             personalDay: day,
             personalYear: year,
@@ -97,7 +104,8 @@ enum DailyReadingEngine {
             challenge: challenge,
             action: action,
             planetaryCurrent: "\(planet.glyph) \(planet.planet)",
-            composedText: composed
+            composedText: composed,
+            moonLucky: moonLucky
         )
     }
 }

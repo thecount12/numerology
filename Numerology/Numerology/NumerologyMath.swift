@@ -41,4 +41,33 @@ enum NumerologyMath {
             calendar.component(.day, from: birthDate)
         )
     }
+    
+    /// Compatibility / birthday root: birth month + birth day, reduced to 1–9.
+    static func birthMonthDayRoot(month: Int, day: Int) -> Int {
+        digitalRoot(month + day)
+    }
+    
+    static func birthMonthDayRoot(from birthDate: Date) -> Int {
+        let parts = birthMonthDay(from: birthDate)
+        return birthMonthDayRoot(month: parts.month, day: parts.day)
+    }
+    
+    /// Western numerology text root: letters A=1…I=9…Z=8 plus digits, reduced to 1–9.
+    static func textRoot(_ text: String) -> Int? {
+        let cleaned = text.lowercased().filter { $0.isLetter || $0.isNumber }
+        guard !cleaned.isEmpty else { return nil }
+        
+        var totalSum = 0
+        for character in cleaned {
+            if let numberValue = character.wholeNumberValue {
+                totalSum += numberValue
+            } else if let asciiValue = character.asciiValue {
+                let positionInAlphabet = Int(asciiValue) - 96 // 'a' == 97
+                let letterValue = ((positionInAlphabet - 1) % 9) + 1
+                totalSum += letterValue
+            }
+        }
+        
+        return digitalRoot(totalSum)
+    }
 }

@@ -32,6 +32,11 @@ final class UserProfile {
         return (total % 9 == 0) ? 9 : total % 9
     }
     
+    /// Birth month + birth day reduced to 1–9 (compatibility core).
+    var birthMonthDayRoot: Int {
+        NumerologyMath.birthMonthDayRoot(from: birthDate)
+    }
+    
     // Centralized custom interpretation dictionary mapping numbers 1-9
     var interpretation: String {
         switch lifePathNumber {
