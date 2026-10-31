@@ -32,6 +32,7 @@ struct PersonalDayTrackerView: View {
                     }
                 }
                 .onChange(of: selectedProfile) {
+                    LastSelectedProfile.remember(selectedProfile)
                     executeAutoCalculations()
                 }
             }
@@ -82,6 +83,9 @@ struct PersonalDayTrackerView: View {
         }
         .navigationTitle("Daily Tracker")
         .onAppear {
+            if selectedProfile == nil {
+                selectedProfile = LastSelectedProfile.resolve(from: savedProfiles)
+            }
             executeAutoCalculations()
         }
     }
@@ -103,15 +107,7 @@ struct PersonalDayTrackerView: View {
     }
     
     func computeRootValue(month: Int, day: Int) {
-        let today = Date()
-        let calendar = Calendar.current
-        let tYear = calendar.component(.year, from: today)
-        let tMonth = calendar.component(.month, from: today)
-        let tDay = calendar.component(.day, from: today)
-        
-        let runningSum = month + day + tYear + tMonth + tDay
-        let remainder = runningSum % 9
-        dailyVibrationResult = (remainder == 0) ? 9 : remainder
+        dailyVibrationResult = NumerologyMath.personalDay(birthMonth: month, birthDay: day)
     }
 }
 

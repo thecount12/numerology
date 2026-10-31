@@ -54,6 +54,9 @@ struct CompatibilityView: View {
                                 Text(profile.name).tag(profile as UserProfile?)
                             }
                         }
+                        .onChange(of: selectedProfile1) {
+                            LastSelectedProfile.remember(selectedProfile1)
+                        }
                         
                         Picker("Person 2", selection: $selectedProfile2) {
                             Text("Select Profile").tag(UserProfile?.none)
@@ -88,6 +91,11 @@ struct CompatibilityView: View {
             }
         }
         .navigationTitle("Compatibility")
+        .onAppear {
+            if selectedProfile1 == nil {
+                selectedProfile1 = LastSelectedProfile.resolve(from: savedProfiles)
+            }
+        }
     }
     
     private var isCalculationDisabled: Bool {

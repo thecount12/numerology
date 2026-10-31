@@ -57,6 +57,7 @@ struct TrinityMatrixView: View {
                     }
                 }
                 .onChange(of: selectedProfile) {
+                    LastSelectedProfile.remember(selectedProfile)
                     calculateMatrix()
                 }
             }
@@ -117,6 +118,9 @@ struct TrinityMatrixView: View {
         }
         .navigationTitle("Trinity & Core")
         .onAppear {
+            if selectedProfile == nil {
+                selectedProfile = LastSelectedProfile.resolve(from: savedProfiles)
+            }
             calculateMatrix()
         }
         .sheet(item: $selectedDetailType) { detailType in
