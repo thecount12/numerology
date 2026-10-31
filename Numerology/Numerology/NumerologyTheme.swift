@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 // 1. Define the custom theme tokens matching your Lux blueprint
 enum NumerologyTheme {
@@ -43,6 +44,20 @@ enum NumerologyTheme {
         case .black:  return Color(.black)
         case .red:    return Color(.systemRed)
         case .unknown: return Color(.systemGray)
+        }
+    }
+    
+    // Readable accent for icons/labels on Form rows (pure black vanishes in Dark Mode)
+    var readableColor: Color {
+        switch self {
+        case .black:
+            return Color(uiColor: UIColor { traits in
+                traits.userInterfaceStyle == .dark
+                    ? UIColor.systemGray2
+                    : UIColor.label
+            })
+        default:
+            return color
         }
     }
     

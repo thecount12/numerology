@@ -76,7 +76,7 @@ struct ContentView: View {
                     }
                 }
             } else {
-                // MARK: - YOUR COMPLETED 10-ICON MASTER DASHBOARD
+                // MARK: - MASTER DASHBOARD
                 NavigationStack {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 24) {
@@ -92,9 +92,15 @@ struct ContentView: View {
                             .padding(.top, 24)
                             
                             // The Master Dashboard Grid
+                            // Life Path, Destiny, Soul Urge & Personality live inside Trinity Core
                             LazyVGrid(columns: columns, spacing: 16) {
-                                NavigationLink(destination: LifePathCalculatorView()) {
-                                    DashboardButtonView(title: "Life Path", subtitle: "Birthdate Math", iconName: "calendar.badge.clock", backgroundColor: .blue)
+                                NavigationLink(destination: TrinityMatrixView()) {
+                                    DashboardButtonView(
+                                        title: "Trinity Core",
+                                        subtitle: "The Big Three Matrix",
+                                        iconName: "triangle.fill",
+                                        backgroundColor: .indigo
+                                    )
                                 }
                                 
                                 NavigationLink(destination: TextRootCalculatorView()) {
@@ -109,20 +115,12 @@ struct ContentView: View {
                                     DashboardButtonView(title: "Personal Year", subtitle: "2026 Cycle Theme", iconName: "clock.arrow.2.circlepath", backgroundColor: .blue)
                                 }
                                 
-                                NavigationLink(destination: SoulUrgeView()) {
-                                    DashboardButtonView(title: "Soul Urge", subtitle: "Vowel Desires", iconName: "waveform.path.ecg", backgroundColor: .orange)
-                                }
-                                
-                                NavigationLink(destination: PersonalityView()) {
-                                    DashboardButtonView(title: "Personality", subtitle: "Consonant Aura", iconName: "person.text.rectangle", backgroundColor: .teal)
-                                }
-                                
-                                NavigationLink(destination: DestinyExpressionView()) {
-                                    DashboardButtonView(title: "Destiny", subtitle: "Full Name Blueprint", iconName: "signature", backgroundColor: .indigo)
-                                }
-                                
                                 NavigationLink(destination: PersonalDayTrackerView()) {
-                                    DashboardButtonView(title: "Daily Tracker", subtitle: "Hourly Flow Root", iconName: "bolt.shield", backgroundColor: .mint)
+                                    DashboardButtonView(title: "Daily Tracker", subtitle: "Today’s Number Root", iconName: "bolt.shield", backgroundColor: .mint)
+                                }
+                                
+                                NavigationLink(destination: DailyReadingView()) {
+                                    DashboardButtonView(title: "Daily Reading", subtitle: "Seeded Day Forecast", iconName: "book.pages.fill", backgroundColor: .orange)
                                 }
                                 
                                 NavigationLink(destination: PlanesOfExpressionView()) {
@@ -133,27 +131,15 @@ struct ContentView: View {
                                     DashboardButtonView(title: "Maturity", subtitle: "Future Horizon Root", iconName: "leaf.arrow.triangle.circlepath", backgroundColor: Color(red: 0.0, green: 0.6, blue: 0.3))
                                 }
                                 
-                                // ICON 11: Persistent SwiftData Profiles Vault
                                 NavigationLink(destination: ProfilesVaultView()) {
                                     DashboardButtonView(
                                         title: "Saved Vault",
                                         subtitle: "Persistent Records",
                                         iconName: "person.text.rectangle.fill",
-                                        backgroundColor: Color(.systemGray) // Using a structural steel tone
-                                    )
-                                }
-                                
-                                // ICON 12: The Trinity Core Synthesis Matrix
-                                NavigationLink(destination: TrinityMatrixView()) {
-                                    DashboardButtonView(
-                                        title: "Trinity Core",
-                                        subtitle: "The Big Three Matrix",
-                                        iconName: "triangle.fill",
-                                        backgroundColor: .indigo
+                                        backgroundColor: Color(.systemGray)
                                     )
                                 }
 
-                                // ICON 13: Cosmic Spheres Cosmology Matrix
                                 NavigationLink(destination: CosmicSpheresView()) {
                                     DashboardButtonView(
                                         title: "Cosmic Spheres",
@@ -163,7 +149,6 @@ struct ContentView: View {
                                     )
                                 }
                                 
-                                // ICON 14: The Planetary Archetypes Vault
                                 NavigationLink(destination: PlanetaryArchetypesView()) {
                                     DashboardButtonView(
                                         title: "Planets & Spirits",
@@ -172,8 +157,6 @@ struct ContentView: View {
                                         backgroundColor: .teal
                                     )
                                 }
-
-
                             }
                             .padding(.horizontal)
                             .padding(.bottom, 30)

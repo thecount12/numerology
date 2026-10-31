@@ -25,6 +25,7 @@ struct CosmicSpheresView: View {
                     }
                 }
                 .onChange(of: selectedProfile) {
+                    LastSelectedProfile.remember(selectedProfile)
                     updateCalculation()
                 }
             }
@@ -78,6 +79,9 @@ struct CosmicSpheresView: View {
         }
         .navigationTitle("Cosmic Spheres")
         .onAppear {
+            if selectedProfile == nil {
+                selectedProfile = LastSelectedProfile.resolve(from: savedProfiles)
+            }
             updateCalculation()
         }
     }
@@ -189,7 +193,7 @@ struct SpheresDataModel {
             return SpheresDataModel(
                 highest: "The Septenary Seal, the master vault of hidden natural mysteries.",
                 intellect: "The Watcher Archangels, managing the cycles of planetary time.",
-                heavenly: "The Martian Horizon, fueling drive, vitality, and focused will.",
+                heavenly: "The Lunar Tide (Seeker Moon), illuminating inner waters and silent wisdom.",
                 elemental: "The Seven Metamorphic Metals, forging dense mineral realities.",
                 lower: "The Seven Energy Rhythms, connecting vital physical internal nodes.",
                 infernal: "The Seven Capitals of Imbalance, causing fury, conflict, and destruction."
@@ -207,7 +211,7 @@ struct SpheresDataModel {
             return SpheresDataModel(
                 highest: "The Horizon of Horizons, the absolute edge of finite manifestation.",
                 intellect: "The Unified Field Matrix, synthesizing all previous numbers into a whole.",
-                heavenly: "The Primum Mobile, the swift wheel driving outer space movements.",
+                heavenly: "The Martian Horizon, fueling drive, vitality, courage, and focused will.",
                 elemental: "The Complete Seasonal Loop, the closure cycle of physical decay and rebirth.",
                 lower: "The Completed Incarnation Blueprint, the cellular threshold of transition.",
                 infernal: "The Void Abysses, generating absolute isolation and dark illusions."

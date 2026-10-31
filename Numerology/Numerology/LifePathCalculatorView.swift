@@ -26,6 +26,7 @@ struct LifePathCalculatorView: View {
                     }
                 }
                 .onChange(of: selectedProfile) {
+                    LastSelectedProfile.remember(selectedProfile)
                     if let profile = selectedProfile {
                         self.name = profile.name
                         self.birthDate = profile.birthDate
@@ -59,6 +60,15 @@ struct LifePathCalculatorView: View {
             }
         }
         .navigationTitle("Life Path Calculator")
+        .onAppear {
+            if selectedProfile == nil,
+               let profile = LastSelectedProfile.resolve(from: savedProfiles) {
+                selectedProfile = profile
+                name = profile.name
+                birthDate = profile.birthDate
+                calculateLifePath()
+            }
+        }
     }
     
     func calculateLifePath() {
